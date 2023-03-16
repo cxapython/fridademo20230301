@@ -1,2 +1,18 @@
 # fridademo20230301
 frida hook 内部类和动态加载的函数
+
+### 关于ClassLoader
+在Android应用程序中，ClassLoader是Java虚拟机（JVM）用来加载Java类的重要组件。
+ClassLoader是负责加载Java类文件并创建对应Java类对象的机制。ClassLoader将.class文件中的字节码加载到内存中，并将其转换为可执行代码。
+
+在Android系统中，每个应用程序都有一个独立的ClassLoader实例，用于加载应用程序中使用的类和库。Android中ClassLoader主要有以下几种类型：
+
+- BootClassLoader：这是Android系统默认的ClassLoader，用于加载系统框架和应用程序的核心库，通常由Zygote进程创建。
+
+- PathClassLoader：这是应用程序默认的ClassLoader，用于加载应用程序中的类和资源。它是从指定的路径中加载类和资源，可以加载APK文件中包含的类和库。
+
+- DexClassLoader：这是PathClassLoader的一个子类，它可以加载非标准的.dex文件，例如动态下载的.dex文件。
+
+ClassLoader通过父子继承关系构建了一个层次结构，如果一个ClassLoader不能找到需要的类，它将委托给它的父ClassLoader查找，直到找到为止。这个委托关系也称为ClassLoader链。
+
+ClassLoader的理解对于应用程序的开发和调试非常重要，它可以帮助我们了解应用程序中的类加载机制，并帮助我们解决由于类加载问题引起的各种错误和异常。
