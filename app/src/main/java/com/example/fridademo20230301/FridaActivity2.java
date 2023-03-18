@@ -69,15 +69,11 @@ public class FridaActivity2 extends AppCompatActivity implements View.OnClickLis
 
     private Object loaddex() {
         File dexFile = new File(getFilesDir(), "DynamicPlugin.dex");
-        if(dexFile.exists()){
-            return this.DynamicDexCheck;
-        }
-
         try (InputStream is = getAssets().open("DynamicPlugin.dex")) {
-            byte[] jpgBytes = new byte[is.available()];
-            is.read(jpgBytes);
+            byte[] dexBytes = new byte[is.available()];
+            is.read(dexBytes);
             try (OutputStream os2 = new FileOutputStream(dexFile)) {
-                os2.write(jpgBytes);
+                os2.write(dexBytes);
             }
             String dexPath = dexFile.getAbsolutePath();
             String dexOutputDir = getFilesDir().getAbsolutePath();
@@ -88,7 +84,7 @@ public class FridaActivity2 extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
 
-        return null;
+        return this.DynamicDexCheck;
     }
 
     public Object getDynamicDexCheck() {
