@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+import com.example.fridademo20230301.a.a;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
@@ -14,7 +16,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Button button = (Button) findViewById(R.id.next_check);
         button.setOnClickListener(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(new a().a(27042)){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.this, "检测到frida!", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    });
 
+                }
+            }
+        }).start();
 
     }
 
