@@ -69,27 +69,6 @@ public class FridaActivity2 extends AppCompatActivity implements View.OnClickLis
     }
 
     private Object loaddex() {
-        File dexFile = new File(getFilesDir(), "DynamicPlugin.dex");
-        try (InputStream is = getAssets().open("DynamicPlugin.dex")) {
-            byte[] dexBytes = new byte[is.available()];
-            is.read(dexBytes);
-            try (OutputStream os2 = new FileOutputStream(dexFile)) {
-                os2.write(dexBytes);
-            }
-            String dexPath = dexFile.getAbsolutePath();
-            String dexOutputDir = getFilesDir().getAbsolutePath();
-            ClassLoader classLoader = new DexClassLoader(dexPath, dexOutputDir, null, getClassLoader());
-            this.clazz = classLoader.loadClass("com.example.fridademo20230301.Dynamic.DynamicCheck");
-            this.DynamicDexCheck = this.clazz.newInstance();
-        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-        }
-
-        return this.DynamicDexCheck;
-    }
-
-
-    private Object loaddex2() {
         try (InputStream is = getAssets().open("1.jpg")) {
             byte[] jpgBytes = new byte[is.available()];
             is.read(jpgBytes);
@@ -111,7 +90,6 @@ public class FridaActivity2 extends AppCompatActivity implements View.OnClickLis
             ClassLoader classLoader = new DexClassLoader(dexPath, dexOutputDir, null, getClassLoader());
             this.clazz = classLoader.loadClass("com.example.fridademo20230301.Dynamic.DynamicCheck");
             this.DynamicDexCheck = this.clazz.newInstance();
-            this.DynamicDexCheck = clazz.newInstance();
         } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
@@ -137,7 +115,7 @@ public class FridaActivity2 extends AppCompatActivity implements View.OnClickLis
     public Object getDynamicDexCheck() {
         if (this.DynamicDexCheck == null) {
             //如何loaddex2出问题就换loaddex()
-            loaddex2();
+            loaddex();
         }
         return this.DynamicDexCheck;
     }
