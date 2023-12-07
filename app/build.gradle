@@ -5,6 +5,12 @@ plugins {
 android {
     namespace 'com.example.fridademo20230301'
     compileSdk 33
+    sourceSets.main.jniLibs.srcDirs = ['./jni/']
+    externalNativeBuild {
+        cmake {
+            path 'jni/CMakeLists.txt'
+        }
+    }
 
     defaultConfig {
         applicationId "com.example.fridademo20230301"
@@ -14,6 +20,18 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+// 设置支持的SO库架构
+
+            abiFilters  'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+
+        }
+
+        externalNativeBuild {
+            cmake {
+                version '3.4.1'
+            }
+        }
     }
 
     buildTypes {
@@ -29,6 +47,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
